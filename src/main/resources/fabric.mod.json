@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "dragndrop",
+  "version": "${version}",
+
+  "name": "Drag 'n' Drop",
+  "description": "Allows you to drag and drop entries on the resource- and datapack screens.",
+  "authors": [
+    "KingContaria"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT",
+
+  "environment": "client",
+  "entrypoints": {
+    "preLaunch": [
+      "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
+    ],
+    "client": [
+      "me.contaria.dragndrop.DragAndDrop"
+    ]
+  },
+  "mixins": [
+    "dragndrop.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "minecraft": ">=1.19.1",
+    "java": ">=17"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/B6ZV8SF672"
+      }
+    }
+  }
+}

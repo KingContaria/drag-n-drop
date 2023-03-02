@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.contaria.dragndrop.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "EntryListWidgetAccessor",
+    "EntryListWidgetMixin",
+    "PackScreenMixin",
+    "ResourcePackEntryAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
