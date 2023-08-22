@@ -41,9 +41,9 @@ public abstract class PackScreenMixin extends Screen implements IPackScreen {
         return this.selectedPackList == packListWidget;
     }
 
-    @Redirect(method = "method_29672", at = @At(value = "NEW", target = "Lnet/minecraft/client/gui/screen/pack/PackListWidget$ResourcePackEntry;"))
-    private PackListWidget.ResourcePackEntry dragndrop_replaceWithDraggableResourcePackEntries(MinecraftClient client, PackListWidget widget, Screen screen, ResourcePackOrganizer.Pack pack) {
-        return new DraggableResourcePackEntry(client, widget, screen, pack);
+    @Redirect(method = "method_29672", at = @At(value = "NEW", target = "(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/gui/screen/pack/PackListWidget;Lnet/minecraft/client/gui/screen/pack/ResourcePackOrganizer$Pack;)Lnet/minecraft/client/gui/screen/pack/PackListWidget$ResourcePackEntry;"))
+    private PackListWidget.ResourcePackEntry dragndrop_replaceWithDraggableResourcePackEntries(MinecraftClient client, PackListWidget widget, ResourcePackOrganizer.Pack pack) {
+        return new DraggableResourcePackEntry(client, widget, this, pack);
     }
 
     @Inject(method = "render", at = @At("TAIL"))

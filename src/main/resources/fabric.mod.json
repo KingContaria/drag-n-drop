@@ -27,6 +27,7 @@
   "mixins": [
     "dragndrop.mixins.json"
   ],
+  "accessWidener": "dragndrop.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.14",
