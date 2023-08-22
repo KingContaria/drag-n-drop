@@ -4,13 +4,12 @@ import me.contaria.dragndrop.interfaces.IPackScreen;
 import me.contaria.dragndrop.mixin.EntryListWidgetAccessor;
 import me.contaria.dragndrop.mixin.ResourcePackEntryAccessor;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ConfirmScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.pack.PackListWidget;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.resource.ResourcePackCompatibility;
 import net.minecraft.text.Text;
 
@@ -23,8 +22,11 @@ public class DraggableResourcePackEntry extends PackListWidget.ResourcePackEntry
 
     private DelayedRenderCall delayedRenderCall;
 
+    private final Screen screen;
+
     public DraggableResourcePackEntry(MinecraftClient client, PackListWidget widget, Screen screen, ResourcePackOrganizer.Pack pack) {
-        super(client, widget, screen, pack);
+        super(client, widget, pack);
+        this.screen = screen;
     }
 
     @Override
@@ -50,18 +52,18 @@ public class DraggableResourcePackEntry extends PackListWidget.ResourcePackEntry
     }
 
     @Override
-    public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+    public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
         if (this.pickedUp) {
             this.delayedRenderCall = () -> {
                 int newY = y + mouseY - (int) this.pickedUpFromY + (int) (((ResourcePackEntryAccessor) this).getWidget().getScrollAmount() - this.scrollAmountWhenPickedUp);
                 int newX = x + mouseX - (int) this.pickedUpFromX;
 
-                DrawableHelper.fill(matrices, newX - 1, newY - 1, newX + entryWidth - 9, newY + entryHeight + 1, -1873784752);
-                super.render(matrices, index, newY, newX, entryWidth, entryHeight, mouseX, mouseY, false, tickDelta);
+                context.fill(newX - 1, newY - 1, newX + entryWidth - 9, newY + entryHeight + 1, -1873784752);
+                super.render(context, index, newY, newX, entryWidth, entryHeight, mouseX, mouseY, false, tickDelta);
             };
             return;
         }
-        super.render(matrices, index, y, x, entryWidth, entryHeight, mouseX, mouseY, hovered, tickDelta);
+        super.render(context, index, y, x, entryWidth, entryHeight, mouseX, mouseY, hovered, tickDelta);
     }
 
     public void render() {
